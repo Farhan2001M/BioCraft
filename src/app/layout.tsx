@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { GridPattern } from "../components/magicui/gridPattern";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,6 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        < GridPattern width={40} height={40} className="-z-10 opacity-85"/>
         {children}
       </body>
     </html>
