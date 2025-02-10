@@ -6,18 +6,19 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import MetaIcon from "../icons/Meta";
 import MistralIcon from "../icons/Mistral";
 import { Slider } from "@/components/ui/slider"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { Info, Loader2 } from "lucide-react";
+import { Textarea } from '../ui/textarea';
+import { Switch } from '../ui/switch';
 
 const formSchema = z.object({
   model: z.string().min(0, "Model is required"),
-  temperature: z.number().min(0, "Temperature must be at least 0").max(1, "Temperature must be at most 2"),
+  temperature: z.number().min(0, "Temperature must be at least 0").max(2, "Temperature must be at most 2"),
   content: z.string().min(0, "Content must be at least 50 characters long").max(1000, "Content must not be long than 1000 characters"),
   type: z.enum(["personal" , "brand"] , {
     errorMap: () => ({ message: "Type is required" })
@@ -135,16 +136,8 @@ const UserInput = () => {
                           <TooltipTrigger >
                             <Info className="w-4 h-4 ml-1 cursor-pointer"  />
                           </TooltipTrigger>
-                          <TooltipContent
-                            sideOffset={25}
-                            collisionPadding={20}
-                            className="max-w-sm"
-                          >
-                            <p>
-                              A higher setting produces more creative and
-                              surprising bios, while a lower setting sticks to
-                              more predictable and conventional styles.
-                            </p>
+                          <TooltipContent sideOffset={25} collisionPadding={20} className="max-w-sm" >
+                            <p> A higher setting produces more creative and surprising bios, while a lower setting sticks to more predictable and conventional styles. </p>
                           </TooltipContent>
                         </Tooltip>
                       </span>
@@ -167,7 +160,113 @@ const UserInput = () => {
               />
             </div>
           </fieldset>
-          <Button type="submit">Submit</Button>
+
+          <fieldset className="grid gap-6 rounded-[8px] border p-4 bg-background/10 backdrop-blur-sm">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              User Input
+            </legend>
+
+            <div className="grid gap-3">
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center justify-between pb-2">
+                      About Yourself
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Add your old twitter bio or write few sentances about yourself"
+                        className="min-h-[10rem]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="">Type</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="personal">Personal</SelectItem>
+                        <SelectItem value="brand">Brand</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="tone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="">Tone</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select tone" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="professional">
+                          Professional
+                        </SelectItem>
+                        <SelectItem value="casual">Casual</SelectItem>
+                        <SelectItem value="sarcastic">Sarcastic</SelectItem>
+                        <SelectItem value="funny">Funny</SelectItem>
+                        <SelectItem value="passionate">Passionate</SelectItem>
+                        <SelectItem value="thoughtful">Thoughtful</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid gap-3">
+              <FormField
+                control={form.control}
+                name="emojis"
+                render={({ field }) => (
+                  <FormItem className="flex items-center">
+                    <FormLabel className="text-sm mr-4">Add Emojis</FormLabel>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="!my-0"
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </fieldset>
+          <Button className="rounded" type="submit" >
+            Generate
+          </Button>
         </form>
       </Form>
     </div>

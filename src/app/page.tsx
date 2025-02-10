@@ -2,7 +2,7 @@ import { ChevronRight, Star } from "lucide-react";
 import Link from "next/link";
 import { AnimatedGradientText } from "@/components/magicui/animatedGradientText";
 import UserInput from "@/components/home/UserInput";
-import OutputScreen from "@/components/home/OutputScreen";
+import OutputScreen from "@/components/home/Output";
 
 export default function Home() {
   return (
