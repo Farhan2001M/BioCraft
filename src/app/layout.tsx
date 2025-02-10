@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import { TooltipProvider } from "../components/ui/tooltip";
 import { GridPattern } from "../components/magicui/gridPattern";
 
 const geistSans = Geist({
@@ -30,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         < GridPattern width={40} height={40} className="-z-10 opacity-85"/>
-        {children}
+        <TooltipProvider delayDuration={150}>
+          {children}
+        </TooltipProvider>
       </body>
     </html>
   );
