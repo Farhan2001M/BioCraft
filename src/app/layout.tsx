@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "../components/ui/tooltip";
 import { GridPattern } from "../components/magicui/gridPattern";
+import { WarpBackground } from "@/components/magicui/warp-background";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,10 +49,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        < GridPattern width={40} height={40} className="-z-10 opacity-85"/>
-        <TooltipProvider delayDuration={150}>
-          {children}
-        </TooltipProvider>
+        <WarpBackground>
+          <TooltipProvider delayDuration={150}>
+            {children}
+          </TooltipProvider>
+        </WarpBackground>
       </body>
     </html>
   );
