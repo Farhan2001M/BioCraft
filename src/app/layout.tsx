@@ -28,8 +28,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Explicitly add the favicon link */}
-        <link rel="icon" href="/iconfoxit.png" type="image/png" />
+        {/* Favicon */}
+        <link rel="icon" type="image/png" href="/icons/iconfoxit.png" />
+
+        {/* Apple Touch Icons for iOS */}
+        <link rel="apple-touch-icon" sizes="192x192" href="/icons/iconfoxit.png" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/icons/iconfoxit.png" />
+
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* iOS meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        {/* Theme color */}
+        <meta name="theme-color" content="#ffffff" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
