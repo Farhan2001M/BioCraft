@@ -23,7 +23,7 @@ export default function Home() {
         </Link>
 
         <h1 className="font-extrabold text-2xl md:text-3xl slg:text-4xl lg:text-5xl text-center w-full lg:w-[90%] uppercase mx-auto pt-4">
-          CRAFT THE PERFECT TWITTER BIO IN SECONDS!
+          CRAFT YOURSELF A PERFECT INSTAGRAM BIO WITH BIOCRFAT IN UNDER A MINUNTE !
         </h1>
         <p className=" text-sm sm:text-base  md:text-lg text-red-600 mx-auto text-center w-full lg:w-[90%] pt-2">
           Just answer a few questions, and we&apos;ll generate a bio that captures
