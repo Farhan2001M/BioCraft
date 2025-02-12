@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AnimatedGradientText } from "@/components/magicui/animatedGradientText";
 import UserInput from "@/components/home/UserInput";
 import OutputScreen from "@/components/home/Output";
+import { BioProvider } from "@/context/bioContext";
 
 export default function Home() {
   return (
@@ -30,9 +31,10 @@ export default function Home() {
         </p>
       </div>
 
-      <UserInput />
-      <OutputScreen />
-
+      <BioProvider>
+        <UserInput />
+        <OutputScreen />
+      </BioProvider>
     </div>
   );
 }

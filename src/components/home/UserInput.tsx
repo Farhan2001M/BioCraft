@@ -1,10 +1,11 @@
 "use client";
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
+import { generateBio } from "@/app/actions"
+import { BioContext } from "@/context/bioContext"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
@@ -46,12 +47,27 @@ const UserInput = () => {
     },
   })
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  const {setOutput , setLoading , loading} = useContext(BioContext);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log("Submitting form with values:", values);
+  
+    const userInputValues = `
+      User Input: ${values.content},
+      Bio Tone: ${values.tone},
+      Bio Type: ${values.type},
+      Emojis: ${values.emojis},
+    `;
+    try {
+      const { data } = await generateBio(userInputValues, values.temperature, values.model);
+      setOutput(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error generating bio:", error);
+      setLoading(false);
+    }
   }
+  
 
 
   return (
@@ -264,8 +280,9 @@ const UserInput = () => {
               />
             </div>
           </fieldset>
-          <Button className="rounded" type="submit" >
-            Generate
+          <Button className="rounded" type="submit" disabled={loading}> 
+            {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" /> }
+            Generate Bio
           </Button>
         </form>
       </Form>
