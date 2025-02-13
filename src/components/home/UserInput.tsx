@@ -20,7 +20,7 @@ import { Switch } from '../ui/switch';
 const formSchema = z.object({
   model: z.string().min(0, "Model is required"),
   temperature: z.number().min(0, "Temperature must be at least 0").max(2, "Temperature must be at most 2"),
-  content: z.string().min(40, "Content must be at least 40 characters long").max(1000, "Content must not be longer than 1000 characters"),
+  content: z.string().min(0, "Content must be at least 40 characters long").max(1000, "Content must not be longer than 1000 characters"),
   type: z.enum(["personal", "brand"], { errorMap: () => ({ message: "Type is required" }) }),
   tone: z.enum(["professional", "casual", "sarcastic", "funny", "passionate", "thoughtful"], { errorMap: () => ({ message: "Tone is required" }) }),
   emojisAndHashtags: z.boolean(),
@@ -73,8 +73,8 @@ const UserInput = () => {
     <div className='relative flex flex-col items-start gap-8'>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full items-start gap-6">
-          <fieldset className='grid gap-6 rounded-[8px] border p-4 bg-background/10 backdrop-blur-sm'>
-            <legend>Settings</legend>
+          <fieldset className='grid gap-6 rounded-[8px] border border-slate-800 p-4 bg-background/50 backdrop-blur-sm'>
+            <legend >Settings</legend>
             <div className='grid gap-4'>
               {/* form code goes here */}
               <FormField
@@ -161,6 +161,7 @@ const UserInput = () => {
                     </FormLabel>
                     <FormControl>
                       <Slider
+                      className=''
                         defaultValue={[1]}
                         min={0}
                         max={2}
@@ -177,7 +178,7 @@ const UserInput = () => {
             </div>
           </fieldset>
 
-          <fieldset className="grid gap-6 rounded-[8px] border p-4 bg-background/10 backdrop-blur-sm">
+          <fieldset className="grid gap-6 rounded-[8px] border border-slate-800 p-4 bg-background/10 backdrop-blur-sm">
             <legend className="-ml-1 px-1 text-sm font-medium">
               User Input
             </legend>
@@ -195,7 +196,7 @@ const UserInput = () => {
                       <Textarea
                         {...field}
                         placeholder="Add your old bio here or write a few sentances about Yourself to get started"
-                        className="min-h-[10rem]"
+                        className="min-h-[10rem] resize-none "
                       />
                     </FormControl>
                     <FormMessage />
