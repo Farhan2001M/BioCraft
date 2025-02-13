@@ -11,7 +11,7 @@ const groq = createGroq({
 });
 
 const systemPrompt = endent`
-You are an AI assistant tasked with generating bio's based on user input.
+You are an AI assistant tasked with generating bios based on user input.
 
 Instructions:
 
@@ -25,7 +25,7 @@ Generate the Bio:
     - Who is the user?
     - What does the user do?
     - What can others expect from the user?
-  - Reflect the given 'Bio Tone' and 'Bio Type' in the style and language of the bio. Do not explicitly mention the tone or type.
+    - Reflect the given 'Bio Tone' and 'Bio Type' in the style and language of the bio. Do not explicitly mention the tone or type.
 
 Bio Requirements:
 
@@ -33,18 +33,20 @@ Bio Requirements:
   - Highlight the most important information about the user.
   - Avoid using too many buzzwords or overdoing humor.
   - Ensure that each bio length is between 120 and 140 characters.
-  - Provide me with exactly 4 bio's not more or less.
-  - If 'Add Emojis' is true, include relevant emojis 2 or 3 , if 'Add Emojis' is false, dont include any emojis .
-  - The response must be in JSON format
+  - Provide exactly 4 bios, no more or less.
+  - If 'EmojisAndHashtags' is true, include relevant emojis (4 to 5) in between bio and 2 or 3 hashtags at the end; 
+  - if 'EmojisAndHashtags' is false, do not include emojis or hashtags .
+  - The response must be in JSON format.
+  - Also Double check that if Emojis And Hashtags are only present in the bio's if the user has asked for it.. otherwise not..
 
 Additional Guidelines:
   - Maintain clarity and coherence in each bio.
-  - Provide response in JSON format only
+  - Provide response in JSON format only.
+`;
 
-  `;
 
-export async function generateBio(input : string , temperature : number , model : string) {
-  const { object : data } = await generateObject({
+export async function generateBio(input: string, temperature: number, model: string) {
+  const { object: data } = await generateObject({
     model: groq(model),
     system: systemPrompt,
     prompt: input,
@@ -53,7 +55,7 @@ export async function generateBio(input : string , temperature : number , model 
     schema: z.object({
       data: z.array(
         z.object({
-          bio: z.string().describe('Add Generated bio\'s here..!'),
+          bio: z.string().describe("Generated bios with optional emojis and hashtags."),
         })
       ),
     }),

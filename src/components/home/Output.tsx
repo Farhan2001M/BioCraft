@@ -23,7 +23,7 @@ const Output = () => {
   }, []);
 
   return (
-    <div className="relative flex md:min-h-[50vh] md:h-full min-h-0 mt-2 flex-col rounded-xl bg-muted/50 backdrop-blur-sm overflow-hidden border border-primary/5">
+    <div className="relative flex flex-col h-full min-h-0 mt-2 rounded-xl bg-muted/50 backdrop-blur-sm overflow-hidden border border-primary/5 max-h-[670px]">
       {loading && (
         <BorderBeam
           size={beamSize}

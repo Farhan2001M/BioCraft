@@ -20,11 +20,12 @@ import { Switch } from '../ui/switch';
 const formSchema = z.object({
   model: z.string().min(0, "Model is required"),
   temperature: z.number().min(0, "Temperature must be at least 0").max(2, "Temperature must be at most 2"),
-  content: z.string().min(0, "Content must be at least 50 characters long").max(1000, "Content must not be long than 1000 characters"),
-  type: z.enum(["personal" , "brand"] , { errorMap: () => ({ message: "Type is required" }) }),
-  tone: z.enum(["professional","casual","sarcastic" ,"funny","passionate" , "thoughtful" ] , { errorMap: () => ({ message: "Role is required" }) }),
-  emojis: z.boolean(), 
-})
+  content: z.string().min(0, "Content must be at least 50 characters long").max(1000, "Content must not be longer than 1000 characters"),
+  type: z.enum(["personal", "brand"], { errorMap: () => ({ message: "Type is required" }) }),
+  tone: z.enum(["professional", "casual", "sarcastic", "funny", "passionate", "thoughtful"], { errorMap: () => ({ message: "Tone is required" }) }),
+  emojisAndHashtags: z.boolean(),
+});
+
 
 
 const UserInput = () => {
@@ -37,7 +38,7 @@ const UserInput = () => {
       content: "",
       type: "personal",
       tone: "professional",
-      emojis: false,
+      emojisAndHashtags: false,
     },
   })
 
@@ -50,20 +51,20 @@ const UserInput = () => {
       User Input: ${values.content},
       Bio Tone: ${values.tone},
       Bio Type: ${values.type},
-      Emojis: ${values.emojis},
+      EmojisAndHashtags: ${values.emojisAndHashtags},
     `;
+  
     try {
-      setLoading(true); 
+      setLoading(true);
       const { data } = await generateBio(userInputValues, values.temperature, values.model);
       setOutput(data);
-      setLoading(false);
     } catch (error) {
       console.error("Error generating bio:", error);
-      setLoading(false);
     } finally {
-      setLoading(false); // Use finally to ensure loading state is always reset
+      setLoading(false);
     }
   }
+  
   
   return (
     <div className='relative flex flex-col items-start gap-8'>
@@ -261,20 +262,15 @@ const UserInput = () => {
             <div className="flex">
               <FormField
                 control={form.control}
-                name="emojis"
+                name="emojisAndHashtags"
                 render={({ field }) => (
                   <FormItem className="flex items-center">
-                    <FormLabel className="text-sm mr-4">Add Emojis</FormLabel>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      className="!my-0"
-                    />
+                    <FormLabel className="text-sm mr-4">Add Emojis & Hashtags</FormLabel>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} className="!my-0" />
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
             </div>
           </fieldset>
           <Button 
