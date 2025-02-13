@@ -19,7 +19,7 @@ export const CopyToClipboardProps: React.FC<{ className?: string; text: string }
         )}
         onClick={() => {
           if (copied) return
-          toast('Bio Copied successfully to clipboard.', {
+          toast('Bio Copied successfully ✅ to clipboard.', {
             position: "bottom-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -27,7 +27,7 @@ export const CopyToClipboardProps: React.FC<{ className?: string; text: string }
             pauseOnHover: false,
             draggable: false,  
             progress: undefined,
-            theme: "light",
+            theme: "dark",
             });
 
           navigator.clipboard.writeText(text)
