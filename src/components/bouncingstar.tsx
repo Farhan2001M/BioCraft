@@ -6,7 +6,7 @@ import { Star } from "lucide-react";
 export default function BouncingStar() {
   return (
     <Link
-      href="https://github.com/codebucks27/AI-Powered-Twitter-Bio-Generator"
+      href="https://github.com/Farhan2001M/BioCraft"
       target="_blank"
       className="inline-block"
     >

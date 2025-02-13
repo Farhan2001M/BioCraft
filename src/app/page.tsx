@@ -2,9 +2,6 @@ import UserInput from "@/components/home/UserInput";
 import OutputScreen from "@/components/home/Output";
 import { BioProvider } from "@/context/bioContext";
 import { TextEffect } from "@/components/ui/text-effect";
-import { AnimatedGradientText } from "@/components/magicui/animatedGradientText";
-import { ChevronRight, Star } from "lucide-react";
-import Link from "next/link";
 import BouncingStar from "@/components/bouncingstar";
 
 export default function Home() {
