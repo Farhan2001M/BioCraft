@@ -21,12 +21,8 @@ const formSchema = z.object({
   model: z.string().min(0, "Model is required"),
   temperature: z.number().min(0, "Temperature must be at least 0").max(2, "Temperature must be at most 2"),
   content: z.string().min(0, "Content must be at least 50 characters long").max(1000, "Content must not be long than 1000 characters"),
-  type: z.enum(["personal" , "brand"] , {
-    errorMap: () => ({ message: "Type is required" })
-  }),
-  tone: z.enum(["professional","casual","sarcastic" ,"funny","passionate" , "thoughtful" ] , {
-    errorMap: () => ({ message: "Role is required" })
-  }),
+  type: z.enum(["personal" , "brand"] , { errorMap: () => ({ message: "Type is required" }) }),
+  tone: z.enum(["professional","casual","sarcastic" ,"funny","passionate" , "thoughtful" ] , { errorMap: () => ({ message: "Role is required" }) }),
   emojis: z.boolean(), 
 })
 
@@ -264,7 +260,7 @@ const UserInput = () => {
               />
             </div>
 
-            <div className="grid gap-3">
+            <div className="flex">
               <FormField
                 control={form.control}
                 name="emojis"
@@ -280,6 +276,7 @@ const UserInput = () => {
                   </FormItem>
                 )}
               />
+              
             </div>
           </fieldset>
           <Button 

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "../components/ui/tooltip";
-import { ToastContainer } from 'react-toastify';
+import { GridPattern } from "../components/magicui/gridPattern";
+import { WarpBackground } from "@/components/magicui/warp-background";
+import { ToastContainer, toast } from 'react-toastify';
 import { AuroraBackground } from "../components/ui/aurora-background";
 
 const geistSans = Geist({
