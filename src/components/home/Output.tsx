@@ -13,7 +13,7 @@ const dummyBios = [
   "Cybersecurity geek 🔒 | Ethical hacker by profession | Protecting data & fighting cyber threats | Tech lover & puzzle solver",
   "Game developer 🎮 | Building virtual worlds one pixel at a time | Passionate about design, storytelling & immersive gaming experiences",
   "Startup founder 🚀 | Creating solutions for modern problems | Always learning, growing & hustling | Building the future, one idea at a time",
-  // ... add more dummy bios as desired.
+  
 ];
 
 const Output = () => {
@@ -30,27 +30,15 @@ const Output = () => {
     return () => window.removeEventListener("resize", updateBeamSize);
   }, []);
 
-  // Check if real bio data is available.
   const realDataExists = output?.data && output.data.length > 0;
 
-  /**
-   * dummyState holds:
-   * - dummyIndices: an array of 4 indices into dummyBios that are currently visible.
-   * - nextDummyIndex: the index of the next dummy bio to show.
-   * - updatePosition: which of the 4 positions should update next.
-   *
-   * Initially we show dummyBios[0..3] and nextDummyIndex is 4.
-   */
   const [dummyState, setDummyState] = useState({
     dummyIndices: [0, 1, 2, 3],
     nextDummyIndex: 4,
     updatePosition: 0,
   });
 
-  /**
-   * Cycle dummy bios only when loading is false and real data isn’t available.
-   * Every 3 seconds one of the 4 dummy bios is replaced by the next one.
-   */
+  const timeInterval = 5000;
   useEffect(() => {
     if (loading || realDataExists) return;
     const interval = setInterval(() => {
@@ -63,7 +51,7 @@ const Output = () => {
           updatePosition: (prev.updatePosition + 1) % 4,
         };
       });
-    }, 5000); // Change 3000 to 2000 if you prefer a 2-second interval.
+    }, timeInterval); 
     return () => clearInterval(interval);
   }, [loading, realDataExists]);
 
@@ -78,11 +66,7 @@ const Output = () => {
         />
       )}
       <Badge variant="outline" className="absolute top-3 right-3 z-50">
-        
-        <TypingText
-          repeat={false}
-          text="Output"
-        />
+        Output
       </Badge>
 
       <ul className="flex flex-col items-start justify-start space-y-8 sm:space-y-12 p-8 py-12 xs:p-8 xs:py-12 sm:p-12 lg:p-16">

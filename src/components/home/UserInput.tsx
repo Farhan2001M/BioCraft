@@ -24,9 +24,10 @@ const formSchema = z.object({
   type: z.enum(["personal", "brand"], { errorMap: () => ({ message: "Type is required" }) }),
   tone: z.enum(["professional", "casual", "sarcastic", "funny", "passionate", "thoughtful"], { errorMap: () => ({ message: "Tone is required" }) }),
   emojisAndHashtags: z.boolean(),
+  platform: z.enum(["LinkedIn", "Facebook", "Twitter", "Instagram", "WhatsApp", "Reddit", "Snapchat", "TikTok"], {
+    errorMap: () => ({ message: "Platform is required" })
+  }),
 });
-
-
 
 const UserInput = () => {
 
@@ -39,6 +40,7 @@ const UserInput = () => {
       type: "personal",
       tone: "professional",
       emojisAndHashtags: false,
+      platform: "LinkedIn", 
     },
   })
 
@@ -48,6 +50,7 @@ const UserInput = () => {
     console.log("Submitting form with values:", values);
   
     const userInputValues = `
+      Platform: ${values.platform},
       User Input: ${values.content},
       Bio Tone: ${values.tone},
       Bio Type: ${values.type},
@@ -56,7 +59,7 @@ const UserInput = () => {
   
     try {
       setLoading(true);
-      const { data } = await generateBio(userInputValues, values.temperature, values.model);
+      const { data } = await generateBio(userInputValues, values.temperature, values.model, values.platform);
       setOutput(data);
     } catch (error) {
       console.error("Error generating bio:", error);
@@ -259,14 +262,42 @@ const UserInput = () => {
               />
             </div>
 
-            <div className="flex">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               <FormField
                 control={form.control}
                 name="emojisAndHashtags"
                 render={({ field }) => (
-                  <FormItem className="flex items-center">
-                    <FormLabel className="text-sm mr-4">Add Emojis & Hashtags</FormLabel>
+                  <FormItem className="flex items-end pb-2">
+                    <FormLabel className="text-sm mr-4 pb-1 pl-5">Add Emojis & Hashtags</FormLabel>
                     <Switch checked={field.value} onCheckedChange={field.onChange} className="!my-0" />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="platform"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Platform</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Platform" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                        <SelectItem value="Facebook">Facebook</SelectItem>
+                        <SelectItem value="Twitter">Twitter</SelectItem>
+                        <SelectItem value="Instagram">Instagram</SelectItem>
+                        <SelectItem value="WhatsApp">WhatsApp</SelectItem>
+                        <SelectItem value="Reddit">Reddit</SelectItem>
+                        <SelectItem value="Snapchat">Snapchat</SelectItem>
+                        <SelectItem value="TikTok">TikTok</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
