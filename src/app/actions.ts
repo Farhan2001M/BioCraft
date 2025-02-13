@@ -32,12 +32,14 @@ Bio Requirements:
   - Use an informal and approachable tone.
   - Highlight the most important information about the user.
   - Avoid using too many buzzwords or overdoing humor.
+  - Never use the user's name in the bio.
   - Ensure that each bio length is between 120 and 140 characters.
   - Provide exactly 4 bios, no more or less.
   - If 'EmojisAndHashtags' is true, include relevant emojis (4 to 5) in between bio and 2 or 3 hashtags at the end; 
   - if 'EmojisAndHashtags' is false, do not include emojis or hashtags .
   - The response must be in JSON format.
   - Also Double check that if Emojis And Hashtags are only present in the bio's if the user has asked for it.. otherwise not..
+  - Also remember that unlike hashtags which should be at the end , my emojis should be in in between the bio text where they need to aside their respective text etc...
 
 Additional Guidelines:
   - Maintain clarity and coherence in each bio.
