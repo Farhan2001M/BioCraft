@@ -57,12 +57,15 @@ const UserInput = () => {
       Emojis: ${values.emojis},
     `;
     try {
+      setLoading(true); 
       const { data } = await generateBio(userInputValues, values.temperature, values.model);
       setOutput(data);
       setLoading(false);
     } catch (error) {
       console.error("Error generating bio:", error);
       setLoading(false);
+    } finally {
+      setLoading(false); // Use finally to ensure loading state is always reset
     }
   }
   
@@ -75,6 +78,7 @@ const UserInput = () => {
           <fieldset className='grid gap-6 rounded-[8px] border p-4 bg-background/10 backdrop-blur-sm'>
             <legend>Settings</legend>
             <div className='grid gap-4'>
+              {/* form code goes here */}
               <FormField
                 control={form.control}
                 name="model"
@@ -192,7 +196,7 @@ const UserInput = () => {
                     <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Add your old twitter bio or write few sentances about yourself"
+                        placeholder="Add your old bio here or write a few sentances about Yourself to get started"
                         className="min-h-[10rem]"
                       />
                     </FormControl>
@@ -278,8 +282,12 @@ const UserInput = () => {
               />
             </div>
           </fieldset>
-          <Button className="rounded" type="submit" disabled={loading}> 
-            {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" /> }
+          <Button 
+            className="rounded" 
+            type="submit" 
+            disabled={loading}
+          >
+            {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
             Generate Bio
           </Button>
         </form>

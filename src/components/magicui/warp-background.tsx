@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import React, { HTMLAttributes, useCallback, useMemo } from "react";
+// import React, { HTMLAttributes, useCallback, useMemo } from "react";
+import React, { HTMLAttributes, useState, useEffect } from "react";
 
 interface WarpBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -64,27 +65,35 @@ export const WarpBackground: React.FC<WarpBackgroundProps> = ({
   gridColor = "hsl(var(--border))",
   ...props
 }) => {
-  const generateBeams = useCallback(() => {
-    const beams = [];
-    const cellsPerSide = Math.floor(100 / beamSize);
-    const step = cellsPerSide / beamsPerSide;
 
-    for (let i = 0; i < beamsPerSide; i++) {
-      const x = Math.floor(i * step);
-      const delay =
-        Math.random() * (beamDelayMax - beamDelayMin) + beamDelayMin;
-      beams.push({ x, delay });
-    }
-    return beams;
+  const [topBeams, setTopBeams] = useState<{ x: number; delay: number }[]>([]);
+  const [rightBeams, setRightBeams] = useState<{ x: number; delay: number }[]>([]);
+  const [bottomBeams, setBottomBeams] = useState<{ x: number; delay: number }[]>([]);
+  const [leftBeams, setLeftBeams] = useState<{ x: number; delay: number }[]>([]);
+
+  useEffect(() => {
+    const generateBeams = () => {
+      const beams = [];
+      const cellsPerSide = Math.floor(100 / beamSize);
+      const step = cellsPerSide / beamsPerSide;
+
+      for (let i = 0; i < beamsPerSide; i++) {
+        const x = Math.floor(i * step);
+        const delay =
+          Math.random() * (beamDelayMax - beamDelayMin) + beamDelayMin;
+        beams.push({ x, delay });
+      }
+      return beams;
+    };
+
+    setTopBeams(generateBeams());
+    setRightBeams(generateBeams());
+    setBottomBeams(generateBeams());
+    setLeftBeams(generateBeams());
   }, [beamsPerSide, beamSize, beamDelayMax, beamDelayMin]);
 
-  const topBeams = useMemo(() => generateBeams(), [generateBeams]);
-  const rightBeams = useMemo(() => generateBeams(), [generateBeams]);
-  const bottomBeams = useMemo(() => generateBeams(), [generateBeams]);
-  const leftBeams = useMemo(() => generateBeams(), [generateBeams]);
-
   return (
-    <div className={cn("relative rounded border p-20", className)} {...props}>
+    <div className={cn("relative rounded border p-12", className)} {...props}>
       <div
         style={
           {

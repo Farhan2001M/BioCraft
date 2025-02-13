@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "../components/ui/tooltip";
-import { GridPattern } from "../components/magicui/gridPattern";
-import { WarpBackground } from "@/components/magicui/warp-background";
+import { ToastContainer } from 'react-toastify';
+import { AuroraBackground } from "../components/ui/aurora-background";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,11 +49,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <WarpBackground>
+        <AuroraBackground>
           <TooltipProvider delayDuration={150}>
             {children}
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              />
           </TooltipProvider>
-        </WarpBackground>
+        </AuroraBackground>
       </body>
     </html>
   );
