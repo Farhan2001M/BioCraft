@@ -16,18 +16,18 @@ export default function Home() {
       </div>
       {/* Header Section */}
       <header className="mb-6">
-        <div className="flex items-center justify-center gap-1">
-          <h1 className="text-xl md:text-2xl lg:text-5xl font-bold text-center text-white relative z-2 font-sans">
-            <ColourfulText text="BioCraft" />
-          </h1>
-          <a href="https://github.com/Farhan2001M/BioCraft" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/Farhan2001M/BioCraft" target="_blank" rel="noopener noreferrer">
+          <div className="flex items-center justify-center gap-1">
+            <h1 className="text-xl md:text-2xl lg:text-5xl font-bold text-center text-white relative z-2 font-sans">
+              <ColourfulText text="BioCraft" />
+            </h1>
             <img 
               src="/icons/iconfoxit.png" 
               alt="BioCraft Logo" 
               className="w-6 h-6 md:w-8 md:h-8 lg:w-14 lg:h-14 cursor-pointer"
             />
-          </a>
-        </div>
+          </div>
+        </a>
         <div className="flex flex-col items-center justify-center space-y-2 sm:space-y-4 text-center">
           <h1 className="font-extrabold text-sm sm:text-lg md:text-xl lg:text-2xl uppercase w-full lg:w-[90%] mx-auto mt-4">
             <TextEffect per="char" preset="fade">
