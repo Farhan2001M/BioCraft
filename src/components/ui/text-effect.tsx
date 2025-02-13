@@ -177,7 +177,8 @@ const createVariantsWithTransition = (
 ): Variants => {
   if (!transition) return baseVariants;
 
-  const { exit: _, ...mainTransition } = transition;
+  // Destructure to capture exit transition and remove it from mainTransition
+  const { exit: exitTransition, ...mainTransition } = transition;
 
   return {
     ...baseVariants,
@@ -196,7 +197,8 @@ const createVariantsWithTransition = (
         ...(hasTransition(baseVariants.exit)
           ? baseVariants.exit.transition
           : {}),
-        ...mainTransition,
+        // Use exit-specific transition if available, else fallback to main
+        ...(exitTransition ?? mainTransition),
         staggerDirection: -1,
       },
     },
